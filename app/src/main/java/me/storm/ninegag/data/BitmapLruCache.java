@@ -2,11 +2,10 @@ package me.storm.ninegag.data;
 
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
-
-import android.os.Build.VERSION;
 
 /**
  * Created by storm on 14-3-25.

@@ -1,16 +1,7 @@
 package me.storm.ninegag.data;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.widget.ImageView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 import me.storm.ninegag.App;

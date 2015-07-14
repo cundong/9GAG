@@ -2,7 +2,9 @@
 package me.storm.ninegag.view.swipeback;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -78,10 +80,11 @@ public class SwipeBackActivityHelper {
      */
     public void convertActivityFromTranslucent() {
         try {
-            Method method = Activity.class.getDeclaredMethod("convertFromTranslucent", null);
+            Method method = Activity.class.getDeclaredMethod("convertFromTranslucent", new Class[0]);
             method.setAccessible(true);
-            method.invoke(mActivity, null);
+            method.invoke(mActivity, new Object[0]);
         } catch (Throwable t) {
+
         }
     }
 
@@ -90,10 +93,14 @@ public class SwipeBackActivityHelper {
      * {@link android.R.attr#windowIsTranslucent} back from opaque to
      * translucent following a call to {@link #convertActivityFromTranslucent()}
      * .
-     * <p/>
+     *
+
+
      * Calling this allows the Activity behind this one to be seen again. Once
      * all such Activities have been redrawn
-     * <p/>
+     *
+
+
      * This call has no effect on non-translucent activities or on activities
      * with the {@link android.R.attr#windowIsFloating} attribute.
      */
@@ -102,17 +109,28 @@ public class SwipeBackActivityHelper {
             Class<?>[] classes = Activity.class.getDeclaredClasses();
             Class<?> translucentConversionListenerClazz = null;
             for (Class clazz : classes) {
-                if (clazz.getSimpleName().contains("TranslucentConversionListener")) {
+                if (clazz.getSimpleName().contains(
+                        "TranslucentConversionListener")) {
                     translucentConversionListenerClazz = clazz;
                 }
             }
-            Method method = Activity.class.getDeclaredMethod("convertToTranslucent",
-                    translucentConversionListenerClazz);
-            method.setAccessible(true);
-            method.invoke(mActivity, new Object[]{
-                    null
-            });
+            Method[] methods = Activity.class.getDeclaredMethods();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                Method method = Activity.class.getDeclaredMethod(
+                        "convertToTranslucent",
+                        translucentConversionListenerClazz);
+                method.setAccessible(true);
+                method.invoke(mActivity, new Object[] { null });
+            } else {
+                Method method = Activity.class.getDeclaredMethod(
+                        "convertToTranslucent",
+                        translucentConversionListenerClazz,
+                        ActivityOptions.class);
+                method.setAccessible(true);
+                method.invoke(mActivity, new Object[] { null, null });
+            }
         } catch (Throwable t) {
+            t.printStackTrace();
         }
     }
 }

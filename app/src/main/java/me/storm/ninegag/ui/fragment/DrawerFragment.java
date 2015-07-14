@@ -16,7 +16,7 @@ import me.storm.ninegag.ui.MainActivity;
 import me.storm.ninegag.ui.adapter.DrawerAdapter;
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * A simple {@link Fragment} subclass.
  *
  */
 public class DrawerFragment extends BaseFragment {

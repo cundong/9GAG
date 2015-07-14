@@ -135,6 +135,8 @@ public class FeedsFragment extends BaseFragment implements LoaderManager.LoaderC
         if (!mSwipeLayout.isRefreshing() && ("0".equals(next))) {
             setRefreshing(true);
         }
+
+
         executeRequest(new GsonRequest(String.format(GagApi.LIST, mCategory.name(), next), Feed.FeedRequestData.class, responseListener(), errorListener()));
     }
 
